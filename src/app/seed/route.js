@@ -1,5 +1,5 @@
-import { products, users } from "@/lib/placeholder-data";
 import {db} from "@vercel/postgres";
+import { users, products } from '../lib/placeholder-data';
 
 const client = await db.connect();
 
@@ -7,9 +7,9 @@ async function seedUsers() {
     await client.sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
     await client.sql`
         CREATE TABLE IF NOT EXISTS users (
-            id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
-            name NVARCHAR(MAX) NOT NULL,
-            family NVARCHAR(MAX) NOT NULL,
+            id INT PRIMARY KEY,
+            name VARCHAR(255) NOT NULL,
+            family VARCHAR(255) NOT NULL,
             username VARCHAR(255) NOT NULL,
             password TEXT NOT NULL,
             phoneNumber TEXT NOT NULL,
@@ -20,10 +20,9 @@ async function seedUsers() {
 
     const insertedUsers = await Promise.all(
         users.map(async (user) => {
-            const hashedPassword = await bcrypt.hash(user.password, 10);
             return client.sql`
-                INSERT INTO users (id, name, family, username, password, phoneNumber, email, age)
-                VALUES (${user.id}, ${user.name}, ${user.family}, ${user.username}, ${hashedPassword}, ${user.phoneNumber}, ${user.email}, ${user.age})
+                INSERT INTO users (id, username, password, phoneNumber, email, age)
+                VALUES (${user.id}, ${user.name}, ${user.family}, ${user.username}, ${user.password}, ${user.phoneNumber}, ${user.email}, ${user.age})
                 ON CONFLICT (id) DO NOTHING;
             `;
         }),
@@ -36,9 +35,9 @@ async function seedProducts() {
     await client.sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
     await client.sql`
         CREATE TABLE IF NOT EXISTS products (
-            id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
-            category NVARCHAR(MAX) NOT NULL,
-            name NVARCHAR(MAX) NOT NULL,
+            id INT PRIMARY KEY,
+            category VARCHAR(255) NOT NULL,
+            name VARCHAR(255) NOT NULL,
             price INT NOT NULL,
             qty INT NOT NULL
         );

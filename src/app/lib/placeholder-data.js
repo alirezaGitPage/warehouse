@@ -1,6 +1,6 @@
 export const users = [
     {
-        id: "1",
+        id: 1,
         name: "علیرضا",
         family: "فتاحی",
         username: "f9817031",
@@ -13,7 +13,7 @@ export const users = [
 
 export const products = [
     {
-        id: "1",
+        id: 1,
         category: "لوازم جانبی",
         name: "ماوس",
         price: 300_000,
