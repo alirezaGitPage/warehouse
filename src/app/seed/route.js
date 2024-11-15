@@ -8,21 +8,20 @@ async function seedUsers() {
     await client.sql`
         CREATE TABLE IF NOT EXISTS users (
             id INT PRIMARY KEY,
-            name VARCHAR(255) NOT NULL,
-            family VARCHAR(255) NOT NULL,
             username VARCHAR(255) NOT NULL,
             password TEXT NOT NULL,
             phoneNumber TEXT NOT NULL,
             email TEXT NOT NULL UNIQUE,
-            age INT NOT NULL
+            age INT NOT NULL,
+            name VARCHAR(255),
         );
     `;
 
     const insertedUsers = await Promise.all(
         users.map(async (user) => {
             return client.sql`
-                INSERT INTO users (id, username, password, phoneNumber, email, age)
-                VALUES (${user.id}, ${user.name}, ${user.family}, ${user.username}, ${user.password}, ${user.phoneNumber}, ${user.email}, ${user.age})
+                INSERT INTO users (id, username, password, phoneNumber, email, age, name)
+                VALUES (${user.id}, ${user.username}, ${user.password}, ${user.phoneNumber}, ${user.email}, ${user.age}, ${user.name})
                 ON CONFLICT (id) DO NOTHING;
             `;
         }),
@@ -36,7 +35,7 @@ async function seedProducts() {
     await client.sql`
         CREATE TABLE IF NOT EXISTS products (
             id INT PRIMARY KEY,
-            category VARCHAR(255) NOT NULL,
+            category NVARCHAR(255) NOT NULL,
             name VARCHAR(255) NOT NULL,
             price INT NOT NULL,
             qty INT NOT NULL

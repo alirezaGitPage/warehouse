@@ -1,13 +1,12 @@
 export const users = [
     {
         id: 1,
-        name: "علیرضا",
-        family: "فتاحی",
         username: "f9817031",
         password: "@Fa9817031",
         phoneNumber: "09380464481",
         email: "afatahi201580@gmail.com",
-        age: 29
+        age: 25,
+        name: "علیرضا فتاحی"
     }
 ];
 
