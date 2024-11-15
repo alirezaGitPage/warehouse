@@ -8,8 +8,8 @@ async function seedUsers() {
     await client.sql`
         CREATE TABLE IF NOT EXISTS users (
             id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
-            name VARCHAR(255) NOT NULL,
-            family VARCHAR(255) NOT NULL,
+            name NVARCHAR(MAX) NOT NULL,
+            family NVARCHAR(MAX) NOT NULL,
             username VARCHAR(255) NOT NULL,
             password TEXT NOT NULL,
             phoneNumber TEXT NOT NULL,
@@ -37,8 +37,8 @@ async function seedProducts() {
     await client.sql`
         CREATE TABLE IF NOT EXISTS products (
             id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
-            category VARCHAR(255) NOT NULL,
-            name VARCHAR(255) NOT NULL,
+            category NVARCHAR(MAX) NOT NULL,
+            name NVARCHAR(MAX) NOT NULL,
             price INT NOT NULL,
             qty INT NOT NULL
         );
