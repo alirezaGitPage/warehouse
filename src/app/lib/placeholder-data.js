@@ -5,8 +5,7 @@ export const users = [
         password: "@Fa9817031",
         phoneNumber: "09380464481",
         email: "afatahi201580@gmail.com",
-        age: 25,
-        name: "علیرضا فتاحی"
+        age: 29,
     }
 ];
 

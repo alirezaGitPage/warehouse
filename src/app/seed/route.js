@@ -12,16 +12,15 @@ async function seedUsers() {
             password TEXT NOT NULL,
             phoneNumber TEXT NOT NULL,
             email TEXT NOT NULL UNIQUE,
-            age INT NOT NULL,
-            name VARCHAR(255),
+            age INT NOT NULL
         );
     `;
 
     const insertedUsers = await Promise.all(
         users.map(async (user) => {
             return client.sql`
-                INSERT INTO users (id, username, password, phoneNumber, email, age, name)
-                VALUES (${user.id}, ${user.username}, ${user.password}, ${user.phoneNumber}, ${user.email}, ${user.age}, ${user.name})
+                INSERT INTO users (id, username, password, phoneNumber, email, age)
+                VALUES (${user.id}, ${user.username}, ${user.password}, ${user.phoneNumber}, ${user.email}, ${user.age})
                 ON CONFLICT (id) DO NOTHING;
             `;
         }),
